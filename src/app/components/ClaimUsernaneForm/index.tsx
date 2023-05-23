@@ -6,6 +6,7 @@ import { Form, FormAnnotation } from './styles'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useRouter } from 'next/navigation'
 
 const clainUsernameFormSchema = z.object({
   username: z
@@ -27,9 +28,12 @@ export default function ClainUsernameForm() {
   } = useForm<ClainUsernameFormData>({
     resolver: zodResolver(clainUsernameFormSchema),
   })
+  const router = useRouter()
 
   const handleClainUsername = async (data: ClainUsernameFormData) => {
-    console.log(data)
+    const { username } = data
+
+    await router.push(`/register?username=${username}`)
   }
 
   return (
