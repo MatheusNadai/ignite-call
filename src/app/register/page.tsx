@@ -1,7 +1,7 @@
 'use client'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Button, Heading, MultiStep, Text, TextInput } from '@ignite-ui/react'
-import { useSearchParams } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { ArrowRight } from 'phosphor-react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
@@ -37,7 +37,7 @@ export default function Register() {
   })
 
   const searchParams = useSearchParams()
-  // const router = useRouter()
+  const router = useRouter()
 
   const queryUsername = searchParams.get('username')
 
@@ -54,6 +54,7 @@ export default function Register() {
         name: data.name,
         username: data.username,
       })
+      await router.push('/register/connect-calendar')
     } catch (err) {
       console.log(err)
       if (err instanceof AxiosError && err?.response?.data?.message) {
