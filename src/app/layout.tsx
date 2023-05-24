@@ -1,16 +1,17 @@
 /* eslint-disable @next/next/no-page-custom-font */
-"use client";
-import React from "react";
-import Head from "next/head";
-import { globalStyles } from "./styles/global";
-import { getCssText } from "@ignite-ui/react";
+'use client'
+import React from 'react'
+import Head from 'next/head'
+import { globalStyles } from './styles/global'
+import { getCssText } from '@ignite-ui/react'
+import { SessionProvider } from 'next-auth/react'
 
-globalStyles();
+globalStyles()
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode;
+  children: React.ReactNode
 }) {
   return (
     <html lang="en">
@@ -30,7 +31,9 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: getCssText() }}
         />
       </Head>
-      <body>{children}</body>
+      <body>
+        <SessionProvider>{children}</SessionProvider>
+      </body>
     </html>
-  );
+  )
 }
