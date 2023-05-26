@@ -1,13 +1,14 @@
 'use client'
 import { Button, Heading, MultiStep, Text } from '@ignite-ui/react'
 import { signIn, useSession } from 'next-auth/react'
-import { useSearchParams } from 'next/navigation'
+import { useSearchParams, useRouter } from 'next/navigation'
 import { ArrowRight, Check } from 'phosphor-react'
 import { AuthError, ConnectBox, ConnectItem, Container, Header } from './styles'
 
-export default function Register() {
+export default function ConnectCalendar() {
   const session = useSession()
   const searchParams = useSearchParams()
+  const router = useRouter()
 
   const queryError = searchParams.get('error')
   const hasAuthError = !!queryError
@@ -53,7 +54,11 @@ export default function Register() {
           </AuthError>
         )}
 
-        <Button type="submit" disabled={!isSignedId}>
+        <Button
+          type="submit"
+          disabled={!isSignedId}
+          onClick={() => router.push('/register/time-intervals')}
+        >
           Próximo passo
           <ArrowRight />
         </Button>

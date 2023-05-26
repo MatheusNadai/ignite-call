@@ -4,12 +4,9 @@ import NextAuth, { NextAuthOptions } from 'next-auth'
 import GoogleProvider, { GoogleProfile } from 'next-auth/providers/google'
 import { cookies } from 'next/headers'
 
-export function buildNextAuthOptions(
-  req: NextApiRequest,
-  res: NextApiResponse,
-): NextAuthOptions {
+export function buildNextAuthOptions(): NextAuthOptions {
   const userIdOnCookies = cookies().get('@ignitecall:userId')?.value
-  console.log(userIdOnCookies)
+
   return {
     adapter: PrismaAdapter(userIdOnCookies),
     providers: [
@@ -55,7 +52,7 @@ export function buildNextAuthOptions(
 }
 
 async function auth(req: NextApiRequest, res: NextApiResponse) {
-  return await NextAuth(req, res, buildNextAuthOptions(req, res))
+  return await NextAuth(req, res, buildNextAuthOptions())
 }
 
 export { auth as GET, auth as POST }
